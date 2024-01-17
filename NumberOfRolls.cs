@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace Mission_2
 {
-    internal class NumberOfRolls
+    class NumberOfRolls
     {
-        public int GetNumberOfRolls()
-        {
-            Console.Write("Welcome to the dice throwing simulator!");
-            Console.Write("\nEnter the number of times you want to roll the dice: ");
-            while (true)
-            {
-                if (int.TryParse(Console.ReadLine(), out int numberOfRolls) && numberOfRolls > 0)
-                {
-                    return numberOfRolls;
-                }
-                else
-                {
-                    Console.Write("Invalid input. Please enter a positive integer: ");
-                }
-            }
-            
+        private Random random = new Random();
 
+        public int[] SimulateRolls(int numberOfRolls)
+        {
+            int[] results = new int[13];
+
+            for (int i = 0; i < numberOfRolls; i++)
+            {
+                int dice1 = random.Next(1, 7);
+                int dice2 = random.Next(1, 7);
+
+                int sum = dice1 + dice2;
+
+                results[sum]++;
+            }
+
+            return results;
         }
     }
 }

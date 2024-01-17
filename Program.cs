@@ -1,36 +1,33 @@
 ﻿using Mission_2;
 
-internal class Program
+using System;
+
+class Program
 {
-    private static void Main(string[] args)
+    static void Main()
     {
-        NumberOfRolls b = new NumberOfRolls();
+        Console.Write("Welcome to the dice throwing simulator!");
+        Console.Write("\nEnter the number of times to roll the dice: ");
+        int numberOfRolls = int.Parse(Console.ReadLine());
 
-        // Console.WriteLine("Hello, World!");
+        NumberOfRolls diceRoller = new NumberOfRolls();
+        int[] results = diceRoller.SimulateRolls(numberOfRolls);
 
-        int NumberOfRolls = b.GetNumberOfRolls();
-        Console.WriteLine("\nDICE ROLLING SIMULATION RESULTS\r\nEach \"*\" represents 1% of the total number of rolls." +
-            "\r\nTotal number of rolls = " + NumberOfRolls + ".\n");
+        Console.WriteLine("\nDICE ROLLING SIMULATION RESULTS\nEach \"*\" represents 1% of the total number of rolls." +
+"\nTotal number of rolls = " + numberOfRolls + ".\n");
+        PrintHistogram(results, numberOfRolls);
+        Console.WriteLine("\nThank you for using the dice throwing simulator. Goodbye!");
+    }
 
-        // Create an array to store the count of each sum
-        int[] diceSumCounts = new int[13];
-
-        // Initialize a random number generator
-        Random random = new Random();
-
-        // Simulate the rolling of two dice and count the sums
-        for (int i = 0; i < NumberOfRolls; i++)
+    // This prints out the histogram results
+    static void PrintHistogram(int[] results, int totalRolls)
+    {
+        for (int i = 2; i <= 12; i++)
         {
-            int die1 = random.Next(1, 7);
-            int die2 = random.Next(1, 7);
+            int percentage = results[i] * 100 / totalRolls;
 
-            // Calculate the sum of the two dice
-            int sum = die1 + die2;
-
-            // Increment the count for the sum
-            diceSumCounts[sum]++;
+            Console.Write($"{i}: {new string('*', percentage)}");
+            Console.WriteLine();
         }
-
-
     }
 }
